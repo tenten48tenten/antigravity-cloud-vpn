@@ -1,0 +1,20 @@
+{
+  "name": "Bulut Masaustu ve Chrome",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "password": "admin",
+      "webPort": 6080,
+      "vncPort": 5901
+    }
+  },
+  "forwardPorts": [6080],
+  "portsAttributes": {
+    "6080": {
+      "label": "Bulut Masaustu (Buraya Tikla)",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "bash .devcontainer/start.sh"
+}
