@@ -1,0 +1,22 @@
+name: Fetch Tailscale MSI
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Tailscale MSI
+        run: |
+          curl -fSL -o tailscale-setup.msi https://pkgs.tailscale.com/stable/tailscale-setup-1.104.7-amd64.msi
+          ls -lh tailscale-setup.msi
+      - name: Create Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete v1.104.7 --yes || true
+          gh release create v1.104.7 tailscale-setup.msi --title "Tailscale 1.104.7" --notes "Tailscale Windows Installer"
